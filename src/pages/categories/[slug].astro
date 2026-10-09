@@ -1,0 +1,6 @@
+---
+import Layout from '../../layouts/ListingLayout.astro';import Grid from '../../components/PostGrid.astro';import {published} from '../../lib/posts';import {categories} from '../../config/categories';
+export async function getStaticPaths(){const posts=await published();return Object.entries(categories).filter(([slug])=>posts.some(p=>p.data.category===slug)).map(([slug,title])=>({params:{slug},props:{title,posts:posts.filter(p=>p.data.category===slug)}}));}
+const {title,posts}=Astro.props;
+---
+<Layout title={title}><Grid posts={posts}/></Layout>

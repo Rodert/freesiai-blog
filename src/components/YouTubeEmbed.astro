@@ -1,0 +1,5 @@
+---
+const {id,title}=Astro.props;
+---
+<section data-pagefind-ignore class="video-section"><h2>视频教程</h2><div class="video-frame" data-video-id={id}><button class="video-load" aria-label={`播放视频：${title}`}>点击加载 YouTube 视频</button></div><p>文字教程可独立阅读。若视频无法加载，<a href={`https://www.youtube.com/watch?v=${id}`} target="_blank" rel="noopener noreferrer">在 YouTube 观看</a>。</p></section>
+<script>document.querySelectorAll<HTMLElement>('[data-video-id]').forEach(el=>el.querySelector('button')?.addEventListener('click',()=>{const iframe=document.createElement('iframe');iframe.src=`https://www.youtube-nocookie.com/embed/${el.dataset.videoId}?autoplay=1`;iframe.title='YouTube 视频教程';iframe.allow='autoplay; encrypted-media; picture-in-picture';iframe.allowFullscreen=true;el.replaceChildren(iframe);}));</script>

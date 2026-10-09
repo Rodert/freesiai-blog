@@ -1,0 +1,9 @@
+---
+import Layout from '../layouts/ListingLayout.astro';
+import Grid from '../components/PostGrid.astro';
+import Pagination from '../components/Pagination.astro';
+import {published} from '../lib/posts';
+import {site} from '../config/site';
+const posts=await published();
+---
+<Layout title="最近发布" description="视频教程与图文指南，按发布时间更新。"><Grid posts={posts.slice(0,site.pageSize)}/><Pagination total={Math.ceil(posts.length/site.pageSize)}/></Layout>

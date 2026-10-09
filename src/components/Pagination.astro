@@ -1,0 +1,4 @@
+---
+const {current=1,total=1}=Astro.props;
+---
+{total>1&&<nav class="pagination" aria-label="文章分页">{Array.from({length:total},(_,i)=>i+1).map(n=><a href={n===1?'/':`/page/${n}/`} aria-current={n===current?'page':undefined}>{n}</a>)}</nav>}

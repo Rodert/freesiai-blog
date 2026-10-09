@@ -1,0 +1,4 @@
+---
+import Base from '../layouts/BaseLayout.astro';import {site} from '../config/site';const m=site.membership;
+---
+<Base title="会员服务"><section class="single-panel"><span class="eyebrow">自由域会员</span><h1>会员服务</h1><p>{m.description}</p>{m.benefits.length>0&&<ul>{m.benefits.map(v=><li>{v}</li>)}</ul>}{m.price&&<p>{m.price}</p>}{m.purchaseUrl?<a class="button" href={m.purchaseUrl} target="_blank" rel="noopener noreferrer">查看购买方式</a>:<span class="status-label">尚未开放</span>}</section></Base>

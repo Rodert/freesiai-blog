@@ -1,0 +1,11 @@
+---
+import Base from '../../layouts/BaseLayout.astro';
+import {published} from '../../lib/posts';
+const hasPosts=(await published()).length>0;
+---
+<Base title="全文搜索" noindex><section class="single-panel search-page"><h1>全文搜索</h1><p>查找文章标题与正文中的关键词。</p>{hasPosts&&<link rel="stylesheet" href="/pagefind/pagefind-ui.css"/>}<div id="search"></div><p id="search-status" role="status" data-empty={!hasPosts}>{hasPosts?'正在准备搜索…':'暂无已发布文章可供搜索。'}</p></section></Base>
+<script>
+
+const status=document.querySelector<HTMLElement>('#search-status');
+if(status?.dataset.empty!=='true')try {const path='/pagefind/pagefind-ui.js';await new Promise<void>((resolve,reject)=>{const s=document.createElement('script');s.src=path;s.onload=()=>resolve();s.onerror=()=>reject();document.head.append(s);});const UI=(window as any).PagefindUI;const ui=new UI({element:'#search',showSubResults:true,translations:{placeholder:'输入关键词',zero_results:'没有找到相关内容',searching:'正在搜索…',load_more:'加载更多'}});const query=new URLSearchParams(location.search).get('q');if(query)ui.triggerSearch(query);if(status)status.textContent='';}catch{if(status)status.textContent='搜索索引尚未就绪，请在完整构建后预览。';}
+</script>

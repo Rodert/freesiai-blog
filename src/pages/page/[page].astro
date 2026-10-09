@@ -1,0 +1,10 @@
+---
+import Layout from '../../layouts/ListingLayout.astro';
+import Grid from '../../components/PostGrid.astro';
+import Pagination from '../../components/Pagination.astro';
+import {published} from '../../lib/posts';
+import {site} from '../../config/site';
+export async function getStaticPaths(){const posts=await published();return Array.from({length:Math.max(0,Math.ceil(posts.length/site.pageSize)-1)},(_,i)=>({params:{page:String(i+2)},props:{posts:posts.slice((i+1)*site.pageSize,(i+2)*site.pageSize),current:i+2,total:Math.ceil(posts.length/site.pageSize)}}));}
+const {posts,current,total}=Astro.props;
+---
+<Layout title={`最近发布 · 第 ${current} 页`}><Grid posts={posts}/><Pagination current={current} total={total}/></Layout>

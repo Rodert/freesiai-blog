@@ -1,0 +1,4 @@
+---
+import Layout from '../layouts/ListingLayout.astro';import Grid from '../components/PostGrid.astro';import {published} from '../lib/posts';const posts=(await published()).filter(p=>!p.data.youtubeId);
+---
+<Layout title="图文教程" description="按步骤阅读，无需视频也能操作。"><Grid posts={posts}/></Layout>

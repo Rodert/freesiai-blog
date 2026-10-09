@@ -1,0 +1,4 @@
+---
+import Layout from '../layouts/ListingLayout.astro';import Grid from '../components/PostGrid.astro';import {published} from '../lib/posts';const posts=(await published()).filter(p=>p.data.youtubeId);
+---
+<Layout title="视频教程" description="配有视频演示的中文教程。"><Grid posts={posts}/></Layout>

@@ -1,0 +1,7 @@
+---
+import Layout from '../../layouts/ListingLayout.astro';
+import {published} from '../../lib/posts';
+import {categories} from '../../config/categories';
+const posts=await published();const active=Object.entries(categories).filter(([slug])=>posts.some(p=>p.data.category===slug));
+---
+<Layout title="文章分类" description="按主题查阅已发布的教程。">{active.length?<div class="category-grid">{active.map(([slug,name])=><a class="panel" href={`/categories/${slug}/`}><h2>{name}</h2><p>{posts.filter(p=>p.data.category===slug).length} 篇文章</p></a>)}</div>:<div class="empty-state"><h2>暂无已发布分类</h2><p>文章发布后，对应分类会显示在这里。</p></div>}</Layout>

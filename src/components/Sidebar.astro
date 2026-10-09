@@ -1,0 +1,7 @@
+---
+import {published,postUrl} from '../lib/posts';
+import {categories} from '../config/categories';
+const posts=await published();
+const active=Object.entries(categories).filter(([slug])=>posts.some(p=>p.data.category===slug));
+---
+<aside class="sidebar" aria-label="侧边栏"><section class="panel"><h2>搜索文章</h2><form action="/search/" class="search-form"><label class="sr-only" for="sidebar-query">搜索关键词</label><input id="sidebar-query" name="q" type="search" placeholder="输入关键词"/><button aria-label="搜索" type="submit">搜索</button></form></section><section class="panel about-panel"><div class="mini-brand">自由域</div><p>分享 AI 工具的使用方法，把视频中的操作整理成可查阅的图文教程。</p><a class="text-link" href="/about/">了解本站 →</a></section>{active.length>0&&<section class="panel"><h2>文章分类</h2><ul class="side-list">{active.map(([slug,name])=><li><a href={`/categories/${slug}/`}>{name}<span>{posts.filter(p=>p.data.category===slug).length}</span></a></li>)}</ul></section>}{posts.length>0&&<section class="panel"><h2>近期文章</h2><ul class="side-list recent">{posts.slice(0,5).map(p=><li><a href={postUrl(p)}>{p.data.title}</a></li>)}</ul></section>}<section class="panel ad-slot" aria-label="预留广告位"><span>广告位</span><p>暂未投放广告</p></section></aside>

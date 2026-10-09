@@ -1,0 +1,4 @@
+---
+import Base from '../layouts/BaseLayout.astro';import {site} from '../config/site';
+---
+<Base title="关于自由域"><section class="single-panel prose"><span class="eyebrow">关于本站</span><h1>自由域</h1><p>自由域是一个中文教程博客，分享 AI 工具、软件使用方法与实用图文指南。</p><p>视频教程会配有文字说明，方便按步骤操作，也方便日后查阅。没有视频的内容同样会以图文形式发布。</p>{site.author&&<p>作者：{site.author}</p>}{site.links.length>0&&<ul>{site.links.map(l=><li><a href={l.url} target="_blank" rel="noopener noreferrer">{l.label}</a></li>)}</ul>}<a class="text-link" href="/">查看最近发布 →</a></section></Base>
